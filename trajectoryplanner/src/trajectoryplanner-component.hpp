@@ -17,9 +17,11 @@
 #include <trajectory_composite.hpp>
 #include <velocityprofile_trap.hpp>
 #include <path_roundedcomposite.hpp>
+#include <path_line.hpp>
+#include <path_circle.hpp>
 #include <rotational_interpolation_sa.hpp>
-#include <utilities/error.h>
 #include <trajectory_composite.hpp>
+#include <utilities/error.h>
 
 using namespace KDL;
 using namespace RTT;
@@ -50,6 +52,6 @@ class Trajectoryplanner : public RTT::TaskContext{
   //trajectory key variables
     Trajectory * _trajectory;
     VelocityProfile * _velocityprofile;
-    Path * path;
+    Path * _path;
 };
 #endif

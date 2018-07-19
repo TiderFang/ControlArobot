@@ -30,16 +30,18 @@ void Trajectoryplanner::cleanupHook() {
 
 //define the operation function
 bool Trajectoryplanner::moveLine(Frame start, Frame end){
+
 	try{
 		//step1:create path
-	    _path = new Path_Line(start ,end ,new RotationalInterpolation_SingleAxis(), _eqradio, True);
+	    _path = new Path_Line(start ,end ,new RotationalInterpolation_SingleAxis(), _eqradio, true);
 	    //step2:create velocity profile
 	    _velocityprofile = new VelocityProfile_Trap(_velocityprofile_maxvel, _velocityprofile_maxacc);
-	    _velocityprofile->SetProfile(0, path->PathLength());
-	    trajectory = new Trajectory_Segment(_path, _velocityprofile);
+	    _velocityprofile->SetProfile(0, _path->PathLength());
+	    _trajectory = new Trajectory_Segment(_path, _velocityprofile);
 	    return true;
 	}
-    catch(Error & error){
+	catch(Error& error){
+	    Error error;
   	    std::cout <<"I encountered this error : " << error.Description() << std::endl;
 	    std::cout << "with the following type " << error.GetType() << std::endl;
 	    return false;
