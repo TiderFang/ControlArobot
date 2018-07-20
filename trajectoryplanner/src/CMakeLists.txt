@@ -11,7 +11,7 @@
 # and installs in the directory lib/orocos/trajectoryplanner/
 #
 orocos_component(trajectoryplanner trajectoryplanner-component.hpp trajectoryplanner-component.cpp) # ...you may add multiple source files
-#
+target_link_libraries(trajectoryplanner ${catkin_LIBRARIES} ${USE_OROCOS_LIBRARIES})
 # You may add multiple orocos_component statements.
 
 #

@@ -34,24 +34,23 @@ class Trajectoryplanner : public RTT::TaskContext{
     void updateHook();
     void stopHook();
     void cleanupHook();
-  public:
-  // trajectory operation
-    bool moveLine(Frame start,Frame end);
-    bool moveCircle();
+    bool moveLine(Frame start, Frame end);
+    bool moveCircle(Frame &start, Vector& center, Vector& endp, Rotation& endr);
     bool moveCircle_close();
     bool movePTP();
   public:
   // property and attribute for velocity profile
-    double _velocityprofile_maxacc;
-    double _velocityprofile_maxvel;
+    double velocityprofile_maxacc_;
+    double velocityprofile_maxvel_;
   public:
   // property for path
-    double _eqradio;
-    double _scale;
+    double eqradio_;
+    double scale_;
+    double circle_alpha_;
   public:
   //trajectory key variables
-    Trajectory * _trajectory;
-    VelocityProfile * _velocityprofile;
-    Path * _path;
+    Trajectory * trajectory_;
+    VelocityProfile * velocityprofile_;
+    Path * path_;
 };
 #endif

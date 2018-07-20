@@ -20,9 +20,8 @@ set(orocos_kdl_INCLUDE_DIR /opt/ros/kinetic/include/kdl)
 find_package(catkin REQUIRED COMPONENTS
     rtt_ros
     tf_conversions
-    orocos_kdl
     )
-#target_link_libraries(my_lib ${catkin_LIBRARIES} ${USE_OROCOS_LIBRARIES})
+find_package(orocos_kdl REQUIRED)
 find_package(cmake_modules REQUIRED)
 find_package(Eigen3 REQUIRED)
 include_directories( include ${catkin_INCLUDE_DIRS} ${USE_OROCOS_INCLUDE_DIRS} ${Eigen_INCLUDE_DIRS} ${orocos_kdl_INCLUDE_DIR})

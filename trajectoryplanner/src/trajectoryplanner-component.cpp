@@ -28,25 +28,39 @@ void Trajectoryplanner::cleanupHook() {
   std::cout << "Trajectoryplanner cleaning up !" <<std::endl;
 }
 
-//define the operation function
-bool Trajectoryplanner::moveLine(Frame start, Frame end){
-
-	try{
-		//step1:create path
-	    _path = new Path_Line(start ,end ,new RotationalInterpolation_SingleAxis(), _eqradio, true);
-	    //step2:create velocity profile
-	    _velocityprofile = new VelocityProfile_Trap(_velocityprofile_maxvel, _velocityprofile_maxacc);
-	    _velocityprofile->SetProfile(0, _path->PathLength());
-	    _trajectory = new Trajectory_Segment(_path, _velocityprofile);
-	    return true;
-	}
-	catch(Error& error){
-	    Error error;
-  	    std::cout <<"I encountered this error : " << error.Description() << std::endl;
-	    std::cout << "with the following type " << error.GetType() << std::endl;
-	    return false;
-  	}
+bool Trajectoryplanner::moveLine(Frame start, Frame end)
+{
+    try{
+        //step1:create line path
+        path_ = new Path_Line(start ,end ,new RotationalInterpolation_SingleAxis(), eqradio_, true);
+        //step2:create velocity profile
+        velocityprofile_ = new VelocityProfile_Trap(velocityprofile_maxvel_, velocityprofile_maxacc_);
+        velocityprofile_->SetProfile(0, path_->PathLength());
+        trajectory_ = new Trajectory_Segment(path_, velocityprofile_);
+        return true;
+    }catch(KDL::Error& error){
+        std::cout <<"I encountered this error : " << error.Description() << std::endl;
+        std::cout << "with the following type " << error.GetType() << std::endl;
+        return false;
+    }
 }
+
+bool Trajectoryplanner::moveCircle(Frame &start, Vector& center, Vector& endp, Rotation& endr){
+    try{
+        //step1: create circle path
+        path_ = new Path_Circle(start,center,endp,endr,circle_alpha_,new RotationalInterpolation_SingleAxis(),eqradio_,true);
+        //step2: create velocity profile
+        velocityprofile_ = new VelocityProfile_Trap(velocityprofile_maxvel_, velocityprofile_maxacc_);
+        velocityprofile_->SetProfile(0, path_->PathLength());
+        trajectory_ = new Trajectory_Segment(path_, velocityprofile_);
+        return true;
+    }catch(KDL::Error& error){
+        std::cout <<"I encountered this error : " << error.Description() << std::endl;
+        std::cout << "with the following type " << error.GetType() << std::endl;
+        return false;
+    }
+}
+
 /*
  * Using this macro, only one component may live
  * in one library *and* you may *not* link this library
