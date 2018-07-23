@@ -27,7 +27,7 @@ void Trajectoryplanner::stopHook() {
 void Trajectoryplanner::cleanupHook() {
   std::cout << "Trajectoryplanner cleaning up !" <<std::endl;
 }
-
+//直线轨迹规划
 bool Trajectoryplanner::moveLine(Frame start, Frame end)
 {
     try{
@@ -44,7 +44,7 @@ bool Trajectoryplanner::moveLine(Frame start, Frame end)
         return false;
     }
 }
-
+//圆弧轨迹规划
 bool Trajectoryplanner::moveCircle(Frame &start, Vector& center, Vector& endp, Rotation& endr){
     try{
         //step1: create circle path
@@ -60,7 +60,10 @@ bool Trajectoryplanner::moveCircle(Frame &start, Vector& center, Vector& endp, R
         return false;
     }
 }
-
+//闭环圆轨迹规划
+bool Trajectoryplanner::moveCircle_closed();
+//PTP轨迹规划
+bool Trajectoryplanner::movePTP();
 /*
  * Using this macro, only one component may live
  * in one library *and* you may *not* link this library
